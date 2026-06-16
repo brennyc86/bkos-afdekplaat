@@ -28,7 +28,7 @@ Verder:
   voorspanning** zodat hij strak trekt. Zet `WAND` op je **gemeten** schotdikte voor
   de beste klem.
 - **Buitenflens** grijpt rondom 10 mm over de rand → dekt de handgezaagde kant netjes af (kat-dicht).
-- **Kabeldoorvoer** links-onder: gat van **70 × 20 mm** (20 mm is te laag voor een kattenkop). Ingerekend op de grote hoekradius zodat het binnen het materiaal valt.
+- **Kabeldoorvoer** links-onder: gat van **70 × 20 mm**, met een **open toegangssleuf (16 mm) naar de onderrand**. Zo kun je de plaat **over reeds aangesloten kabels** leggen (kabels hoeven niet losgekoppeld) — laat de plaat zakken en de kabels glijden via de sleuf in het gat. Stem `SLEUF_B` af op je kabelbundel; de resterende ruimte kun je na montage opvullen (tule/grommet) om het kat-dicht te houden.
 - Zijkanten hebben **geen** haak (alleen buitenflens) — precies zoals gevraagd.
 
 ### Doorsneden (bewijs dat het mechaniek klopt)
@@ -65,7 +65,9 @@ Verder:
 1. **Onderdeel** schuin in de opening steken, onderhaak achter de binnenkant haken, omhoog draaien tot de flens vlak ligt.
 2. **Bovendeel** met de bovenhaak achter de binnenkant-boven haken, naar beneden draaien; de onderrand legt over het onderdeel.
 3. 2 schroeven van buitenaf door de lap-naad in de bossen draaien. Klaar.
-4. Kabels door het slot links-onder leiden.
+4. Kabels: leg de plaat over de bestaande kabels — ze glijden via de open sleuf in het kabelgat. Vul daarna de speling rond de kabels op (tule/grommet/kit) voor een nette, kat-dichte afsluiting.
+
+![sleuf](preview_sleuf.png)
 
 ## Maten aanpassen
 
@@ -85,7 +87,8 @@ Handige knoppen:
 - `HAAK_OVER` – breedte van het contactvlak van de richel achter het schot.
 - `HAAK_VOORSPAN` – voorspanning waarmee de richel klemt (groter = strakker; te groot = past niet).
 - `WEB_DIK` – hoe massief de richel aan de flens vastzit (tegen wegbuigen).
-- `KABEL_*` – plek/maat kabelslot. Wil je 'm open aan de onderrand i.p.v. een dicht gat? Verlaag `KABEL_Y` tot voorbij de rand.
+- `KABEL_*` – plek/maat van het kabelgat.
+- `SLEUF_AAN` / `SLEUF_B` / `SLEUF_X` / `SLEUF_NAAR` – de open toegangssleuf. `SLEUF_NAAR` = `"onder"`, `"links"` of `"rechts"` (naar welke rand de sleuf loopt). `SLEUF_AAN=False` maakt er weer een dicht gat van.
 
 ## Belangrijk: eerst test-passen
 

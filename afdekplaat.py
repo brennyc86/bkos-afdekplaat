@@ -16,6 +16,7 @@ Bouwt twee delen (ONDER + BOVEN), exporteert STL en rendert preview-PNG's.
 import numpy as np
 import trimesh
 from shapely.geometry import box as sbox
+from shapely.affinity import translate as shift2d
 
 ENGINE = "manifold"
 
@@ -59,6 +60,12 @@ KABEL_H   = 20.0
 KABEL_X   = -35.0   # midden x
 KABEL_Y   = -95.0   # midden y
 KABEL_R   = 6.0     # afronding van het slot
+# Open toegangssleuf: verbindt het kabelgat met de rand, zodat je de plaat OVER
+# reeds aangesloten kabels kunt leggen (kabels hoeven niet losgekoppeld).
+SLEUF_AAN = True
+SLEUF_B   = 16.0    # breedte van de toegangssleuf
+SLEUF_X   = -35.0   # midden x van de sleuf (default = midden kabelgat)
+SLEUF_NAAR = "onder"  # naar welke rand de sleuf loopt: "onder" / "links" / "rechts"
 
 QS = 24             # quad-segments voor afrondingen (gladheid)
 
@@ -157,11 +164,25 @@ def maak_onder():
     for sx in (-1, 1):
         holes.append(cyl(SCHROEF_KERN/2.0, -half - 0.5, BOSS_LEN + 0.5, x=sx*SCHROEF_X, y=SPLIT_Y + LAP_OVER/2.0))
     part = D(part, U(holes))
-    # kabeldoorvoer
+    # kabeldoorvoer + open toegangssleuf naar de rand
     if KABEL_AAN:
-        slot = solid(rr(KABEL_B, KABEL_H, KABEL_R), -FLENS_DIK - 1, WAND + HAAK_DIK + 1)
-        slot.apply_translation([KABEL_X, KABEL_Y, 0])
-        part = D(part, slot)
+        cut2d = shift2d(rr(KABEL_B, KABEL_H, KABEL_R), KABEL_X, KABEL_Y)
+        if SLEUF_AAN:
+            buiten = OPENING_H/2 + FLENS_OVER + 12   # ruim voorbij de plaatrand
+            if SLEUF_NAAR == "onder":
+                L = KABEL_Y + buiten                 # van kabelgat tot voorbij onderrand
+                sl = shift2d(rr(SLEUF_B, L, SLEUF_B/2 - 0.2), SLEUF_X, KABEL_Y - L/2)
+            elif SLEUF_NAAR == "links":
+                buitenx = OPENING_B/2 + FLENS_OVER + 12
+                L = (KABEL_X + buitenx)
+                sl = shift2d(rr(L, SLEUF_B, SLEUF_B/2 - 0.2), KABEL_X - L/2, KABEL_Y)
+            else:  # rechts
+                buitenx = OPENING_B/2 + FLENS_OVER + 12
+                L = (buitenx - KABEL_X)
+                sl = shift2d(rr(L, SLEUF_B, SLEUF_B/2 - 0.2), KABEL_X + L/2, KABEL_Y)
+            cut2d = cut2d.union(sl)
+        cut = solid(cut2d, -FLENS_DIK - 1, WAND + HAAK_DIK + 1)
+        part = D(part, cut)
     return part
 
 # ============================================================
