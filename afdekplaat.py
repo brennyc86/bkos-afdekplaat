@@ -34,9 +34,11 @@ FLENS_DIK  = 4.0    # dikte van de buitenflens (de zichtbare plaat)
 
 RAND_DIK   = 3.5    # wanddikte van de insteekrand (in het gat)
 
-HAAK_OVER  = 8.0    # hoe ver de binnenhaak achter het schot grijpt
-HAAK_DIK   = 3.5    # dikte van de haak
-HAAK_BAND  = 60.0   # haak loopt vanaf de rand tot |y| > (helft - dit) ... zie code
+HAAK_OVER  = 12.0   # hoe ver de richel achter het schot grijpt (= breedte contactvlak)
+HAAK_DIK   = 5.0    # dikte/hoogte van de richel -> stijver
+HAAK_BAND  = 78.0   # haak loopt vanaf de rand tot |y| > (helft - dit) ... zie code
+HAAK_VOORSPAN = 0.3 # lichte voorspanning: contactvlak op Z=WAND-dit, klemt tegen schot
+WEB_DIK    = 6.0    # verbindingsweb richel<->flens over volle hoogte (tegen 'zweven')
 
 SPLIT_Y    = 0.0    # hoogte van de scheidingslijn onder/boven (0 = midden)
 LAP_OVER   = 25.0   # lengte van de overlap-naad (lap joint)
@@ -100,6 +102,7 @@ def I(a, b):
 opening    = rr(OPENING_B, OPENING_H, OPENING_R)
 insert_out = rr(OPENING_B - 2*MARGE, OPENING_H - 2*MARGE, OPENING_R - MARGE)
 insert_in  = rr(OPENING_B - 2*MARGE - 2*RAND_DIK, OPENING_H - 2*MARGE - 2*RAND_DIK, OPENING_R - MARGE - RAND_DIK)
+insert_web = rr(OPENING_B - 2*MARGE - 2*WEB_DIK, OPENING_H - 2*MARGE - 2*WEB_DIK, OPENING_R - MARGE - WEB_DIK)
 flange     = rr(OPENING_B + 2*FLENS_OVER, OPENING_H + 2*FLENS_OVER, OPENING_R + FLENS_OVER)
 hook_out   = rr(OPENING_B + 2*HAAK_OVER, OPENING_H + 2*HAAK_OVER, OPENING_R + HAAK_OVER)
 
@@ -120,11 +123,17 @@ half = FLENS_DIK / 2.0
 bottom_lap = I(solid(flange, -half, 0.0),            ybox(SPLIT_Y, SPLIT_Y + LAP_OVER))  # binnenhelft
 top_lap    = I(solid(flange, -FLENS_DIK, -half),     ybox(SPLIT_Y, SPLIT_Y + LAP_OVER))  # buitenhelft
 
-# Haken (richel + 45-graden wig als steun) langs onder- resp. bovenrand.
+# Richel (haak) langs onder- resp. bovenrand.
+#  - lip   : massief vlak dat met de onderkant (Z=WAND-voorspan) VOL tegen de
+#            achterkant van het schot klemt; HAAK_OVER breed.
+#  - web    : verbindt de lip over de VOLLE hoogte (Z=0 flens -> top lip) met het
+#            lichaam, zodat de richel niet kan wegbuigen ('zweven').
+#  Samen vormen ze een stijve, driehoekige beugel met vol contact.
 def haak(onder=True):
-    # Vlakke richel die achter de binnenkant van het schot grijpt.
-    # De binnenrand sluit aan op de bovenkant van de insteekrand (insert_out @ Z=WAND).
-    h = solid(hook_ring, WAND, WAND + HAAK_DIK)
+    cf  = WAND - HAAK_VOORSPAN
+    lip = solid(hook_ring, cf, WAND + HAAK_DIK)
+    web = solid(insert_out.difference(insert_web), 0.0, WAND + HAAK_DIK)
+    h = U([lip, web])
     if onder:
         sel = ybox(-3000, -(OPENING_H/2 - HAAK_BAND))
     else:

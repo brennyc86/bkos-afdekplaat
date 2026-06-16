@@ -16,11 +16,17 @@ Twee delen die in elkaar haken en met 2 schroeven van buitenaf vastzitten:
 
 | Onderdeel | Hoe het vastzit |
 |---|---|
-| **ONDER** | Schuin insteken → onderhaak achter de binnenkant → omhoog draaien tot hij valt. Flens buiten houdt 'm tegen indrukken, haak binnen tegen eruit vallen. |
-| **BOVEN** | Bovenhaak grijpt achter de binnenkant-boven; de zijkanten steunen op de buitenflens. De onderrand overlapt het onderdeel (lap-naad). |
+| **ONDER** | Schuin insteken → onderrichel achter de binnenkant → omhoog draaien tot hij valt. Flens buiten houdt 'm tegen indrukken, richel binnen tegen eruit vallen. |
+| **BOVEN** | Bovenrichel grijpt achter de binnenkant-boven; de zijkanten steunen op de buitenflens. De onderrand overlapt het onderdeel (lap-naad). |
 | **Verbinding** | 2 schroeven van buitenaf door de lap-naad klemmen boven + onder aan elkaar → het geheel kan niet meer los. |
 
 Verder:
+- **Stevige richel met vol contact.** De richel is geen dun lipje meer maar een
+  massieve beugel: een **web** loopt over de volle hoogte (van de flens tot de top
+  van de richel) mee omhoog, zodat de richel niet kan wegbuigen/'zweven'. De lip
+  klemt met een **12 mm breed vlak** tegen de achterkant van het schot, met **0,3 mm
+  voorspanning** zodat hij strak trekt. Zet `WAND` op je **gemeten** schotdikte voor
+  de beste klem.
 - **Buitenflens** grijpt rondom 10 mm over de rand → dekt de handgezaagde kant netjes af (kat-dicht).
 - **Kabeldoorvoer** links-onder: gat van **70 × 20 mm** (20 mm is te laag voor een kattenkop). Ingerekend op de grote hoekradius zodat het binnen het materiaal valt.
 - Zijkanten hebben **geen** haak (alleen buitenflens) — precies zoals gevraagd.
@@ -30,7 +36,8 @@ Verder:
 ![sneden](sneden.png)
 
 - Rood = rand van de opening, zwart stippel = buitenkant schot (Z=0), groen = binnenkant (Z=10).
-- Links flens + insteekrand + onderhaak áchter het schot; rechts idem met bovenhaak; midden de lap-naad (binnen- + buitenhelft samen vol, buitenkant vlak).
+- Links flens + insteekrand + onderrichel (web + lip) die vol áchter het schot klemt; rechts idem met bovenrichel; midden de lap-naad (binnen- + buitenhelft samen vol, buitenkant vlak).
+- De richel-lip ligt met zijn onderkant net vóór de groene lijn (Z=9,7): de 0,3 mm voorspanning waarmee hij tegen de achterkant van het schot trekt.
 
 ## Bestanden
 
@@ -43,12 +50,12 @@ Verder:
 
 ## Printen
 
-> ⚠️ **Bedmaat:** de delen zijn ±**255 mm** in één richting (opening 235 + 2× flens 10).
-> Past op een 256-bed (Bambu/CR-10/Ender-5 Plus). Op een 220-bed: **45° gedraaid**
-> printen (diagonaal ≈ 311 mm past). Of `FLENS_OVER` verlagen.
+> ⚠️ **Bedmaat:** de delen zijn ±**256 mm** in één richting (opening 235 + flens/richel).
+> Past nipt op een 256-bed (Bambu/CR-10/Ender-5 Plus). Op een 220-bed: **45° gedraaid**
+> printen (diagonaal ≈ 311 mm past). Of `FLENS_OVER`/`HAAK_OVER` iets verlagen.
 
 - **Oriëntatie:** flens-kant op het bed (de platte buitenkant naar beneden).
-- **Support:** alleen nodig onder de binnenhaken (kleine richels). Slicer zet die automatisch. Rest is support-vrij.
+- **Support:** nodig onder de binnenrichels (de lip steekt 12 mm over). Slicer zet die automatisch; alleen daar. Rest is support-vrij.
 - **Materiaal:** PETe of ASA i.v.m. vocht/UV op een boot (PLA kan, maar minder bestendig).
 - **Wanden/infill:** 4 wanden, 25–30 % infill is ruim voldoende; dit is geen dragend deel.
 - **Schroeven:** 2× **M4 zelftappend, ±16 mm** (RVS A4 voor op het water). Voorboorgaten Ø3,3 zitten al in de bossen. Upgrade-optie: heat-set inserts + M4 machineschroef.
@@ -71,10 +78,13 @@ python3 snede.py && python3 render.py   # optioneel: plaatjes
 ```
 
 Handige knoppen:
+- `WAND` – **meet je echte schotdikte na**; bepaalt de klem (flens vóór ↔ richel achter).
 - `MARGE` – speling in het gat (groter = ruimer, makkelijker passen).
 - `FLENS_OVER` – hoeveel de flens over de rand grijpt (en de totale buitenmaat).
 - `OPENING_R` – **meet je echte hoekradius na** en zet 'm hier.
-- `HAAK_OVER` – hoe diep de haken grijpen (kleiner = makkelijker insteken).
+- `HAAK_OVER` – breedte van het contactvlak van de richel achter het schot.
+- `HAAK_VOORSPAN` – voorspanning waarmee de richel klemt (groter = strakker; te groot = past niet).
+- `WEB_DIK` – hoe massief de richel aan de flens vastzit (tegen wegbuigen).
 - `KABEL_*` – plek/maat kabelslot. Wil je 'm open aan de onderrand i.p.v. een dicht gat? Verlaag `KABEL_Y` tot voorbij de rand.
 
 ## Belangrijk: eerst test-passen
