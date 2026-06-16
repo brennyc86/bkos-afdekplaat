@@ -27,7 +27,7 @@ Verder:
   klemt met een **12 mm breed vlak** tegen de achterkant van het schot, met **0,3 mm
   voorspanning** zodat hij strak trekt. Zet `WAND` op je **gemeten** schotdikte voor
   de beste klem.
-- **Buitenflens** grijpt rondom 10 mm over de rand → dekt de handgezaagde kant netjes af (kat-dicht).
+- **Buitenflens** grijpt rondom **4 mm** over de rand → dekt de handgezaagde kant af (kat-dicht). Compact gehouden zodat het geheel **±243 mm** breed blijft en op een Bambu A1 (256 mm) past met marge. Meer overlap willen om een grovere zaagrand te verbergen? Verhoog `FLENS_OVER` (let op de bedmaat).
 - **Kabeldoorvoer** links-onder: gat van **70 × 20 mm**, met een **open toegangssleuf (16 mm) naar de onderrand**. Zo kun je de plaat **over reeds aangesloten kabels** leggen (kabels hoeven niet losgekoppeld) — laat de plaat zakken en de kabels glijden via de sleuf in het gat. Stem `SLEUF_B` af op je kabelbundel; de resterende ruimte kun je na montage opvullen (tule/grommet) om het kat-dicht te houden.
 - Zijkanten hebben **geen** haak (alleen buitenflens) — precies zoals gevraagd.
 
@@ -50,9 +50,8 @@ Verder:
 
 ## Printen
 
-> ⚠️ **Bedmaat:** de delen zijn ±**256 mm** in één richting (opening 235 + flens/richel).
-> Past nipt op een 256-bed (Bambu/CR-10/Ender-5 Plus). Op een 220-bed: **45° gedraaid**
-> printen (diagonaal ≈ 311 mm past). Of `FLENS_OVER`/`HAAK_OVER` iets verlagen.
+> ✅ **Bedmaat:** de delen zijn ±**243 mm** breed × **160 mm** hoog → past ruim op een
+> **Bambu Lab A1 (256 × 256 mm)** met marge. Op een 220-bed: **45° gedraaid** printen.
 
 - **Oriëntatie:** flens-kant op het bed (de platte buitenkant naar beneden).
 - **Support:** nodig onder de binnenrichels (de lip steekt 12 mm over). Slicer zet die automatisch; alleen daar. Rest is support-vrij.

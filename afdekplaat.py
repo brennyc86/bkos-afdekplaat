@@ -30,14 +30,14 @@ WAND      = 10.0    # dikte van het schot (buiten -> binnen)
 
 MARGE     = 1.5     # speling rondom de insteek in het gat (per zijde) - handzaag
 
-FLENS_OVER = 10.0   # hoeveel de buitenflens over de rand grijpt (rondom)
+FLENS_OVER = 4.0    # hoeveel de buitenflens over de rand grijpt (rondom) -> bepaalt buitenmaat
 FLENS_DIK  = 4.0    # dikte van de buitenflens (de zichtbare plaat)
 
 RAND_DIK   = 3.5    # wanddikte van de insteekrand (in het gat)
 
 HAAK_OVER  = 12.0   # hoe ver de richel achter het schot grijpt (= breedte contactvlak)
 HAAK_DIK   = 5.0    # dikte/hoogte van de richel -> stijver
-HAAK_BAND  = 78.0   # haak loopt vanaf de rand tot |y| > (helft - dit) ... zie code
+HAAK_BAND  = 52.0   # haak alleen op de lagere/hogere bocht (smaller dan flens -> binnen buitenmaat)
 HAAK_VOORSPAN = 0.3 # lichte voorspanning: contactvlak op Z=WAND-dit, klemt tegen schot
 WEB_DIK    = 6.0    # verbindingsweb richel<->flens over volle hoogte (tegen 'zweven')
 
