@@ -30,7 +30,7 @@ WAND      = 10.0    # dikte van het schot (buiten -> binnen)
 
 MARGE     = 10.0    # speling rondom de insteek in het gat (PER ZIJDE) - handzaag, ruim genomen
 
-FLENS_OVER = 4.0    # hoeveel de buitenflens over de rand grijpt (rondom) -> bepaalt buitenmaat
+FLENS_OVER = 8.0    # flens grijpt 8 mm over de rand -> flens 1,6 cm groter dan gat (buitenmaat 251)
 FLENS_DIK  = 4.0    # dikte van de buitenflens (de zichtbare plaat)
 
 RAND_DIK   = 3.5    # wanddikte van de insteekrand (in het gat)
@@ -213,8 +213,8 @@ if __name__ == "__main__":
     import sys
     onder = maak_onder()
     boven = maak_boven()
-    onder.export("/home/claude/bkos-afdekplaat/afdekplaat_onder.stl")
-    boven.export("/home/claude/bkos-afdekplaat/afdekplaat_boven.stl")
+    onder.export("afdekplaat_onder.stl")
+    boven.export("afdekplaat_boven.stl")
     for naam, m in (("ONDER", onder), ("BOVEN", boven)):
         print(f"{naam}: watertight={m.is_watertight} volume={m.volume/1000:.1f} cm3 "
               f"bbox={np.round(m.extents,1)} tris={len(m.faces)}")

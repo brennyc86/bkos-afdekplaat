@@ -18,8 +18,8 @@ def setlims(ax, meshes):
     ax.set_xlim(c[0]-r, c[0]+r); ax.set_ylim(c[1]-r, c[1]+r); ax.set_zlim(c[2]-r, c[2]+r)
     ax.set_box_aspect((1,1,1))
 
-onder = trimesh.load("/home/claude/bkos-afdekplaat/afdekplaat_onder.stl")
-boven = trimesh.load("/home/claude/bkos-afdekplaat/afdekplaat_boven.stl")
+onder = trimesh.load("afdekplaat_onder.stl")
+boven = trimesh.load("afdekplaat_boven.stl")
 
 views = [
     ("buiten",  (20, -90)),   # van buitenaf (kijkt op de flens, -Z kant)
@@ -33,7 +33,7 @@ for naam, (el, az) in views:
     add(ax, onder, (0.30,0.45,0.75)); add(ax, boven, (0.80,0.55,0.25))
     setlims(ax, [onder, boven]); ax.view_init(elev=el, azim=az)
     ax.set_title(f"Geassembleerd - {naam}"); ax.set_xlabel("X"); ax.set_ylabel("Y"); ax.set_zlabel("Z")
-    fig.tight_layout(); fig.savefig(f"/home/claude/bkos-afdekplaat/preview_{naam}.png", dpi=90); plt.close(fig)
+    fig.tight_layout(); fig.savefig(f"preview_{naam}.png", dpi=90); plt.close(fig)
 
 # 2) Exploded (bovendeel naar +Y en boven onderdeel uit elkaar) + losse delen
 fig = plt.figure(figsize=(8,8)); ax = fig.add_subplot(111, projection="3d")
@@ -41,12 +41,12 @@ bov2 = boven.copy(); bov2.apply_translation([0, 60, 0])
 add(ax, onder, (0.30,0.45,0.75)); add(ax, bov2, (0.80,0.55,0.25))
 setlims(ax, [onder, bov2]); ax.view_init(elev=26, azim=-60)
 ax.set_title("Exploded"); fig.tight_layout()
-fig.savefig("/home/claude/bkos-afdekplaat/preview_exploded.png", dpi=90); plt.close(fig)
+fig.savefig("preview_exploded.png", dpi=90); plt.close(fig)
 
 # 3) Doorsnede-achtig: onderdeel van binnen (haak + rand + boss)
 fig = plt.figure(figsize=(8,8)); ax = fig.add_subplot(111, projection="3d")
 add(ax, onder, (0.30,0.45,0.75))
 setlims(ax, [onder]); ax.view_init(elev=22, azim=70)
 ax.set_title("Onderdeel - binnenzijde (haak/rand/boss)"); fig.tight_layout()
-fig.savefig("/home/claude/bkos-afdekplaat/preview_onder_binnen.png", dpi=90); plt.close(fig)
+fig.savefig("preview_onder_binnen.png", dpi=90); plt.close(fig)
 print("renders klaar")

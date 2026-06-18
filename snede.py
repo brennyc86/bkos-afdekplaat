@@ -4,8 +4,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np, trimesh
 
-onder = trimesh.load("/home/claude/bkos-afdekplaat/afdekplaat_onder.stl")
-boven = trimesh.load("/home/claude/bkos-afdekplaat/afdekplaat_boven.stl")
+onder = trimesh.load("afdekplaat_onder.stl")
+boven = trimesh.load("afdekplaat_boven.stl")
 WAND=10.0; OPEN_H=245.0; OPEN_B=235.0
 
 def yz(mesh, x):
@@ -49,5 +49,5 @@ ax.set_title("Snede y=-95  (door kabeldoorvoer)  horizontaal=X")
 ax.set_xlabel("X"); ax.set_ylabel("Z"); ax.invert_yaxis(); ax.grid(alpha=.3)
 ax.set_aspect(2.5)
 
-fig.tight_layout(); fig.savefig("/home/claude/bkos-afdekplaat/sneden.png", dpi=95); plt.close(fig)
+fig.tight_layout(); fig.savefig("sneden.png", dpi=95); plt.close(fig)
 print("sneden klaar")
