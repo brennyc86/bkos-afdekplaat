@@ -28,7 +28,7 @@ OPENING_H = 245.0   # hoogte  van de opening
 OPENING_R = 95.0    # hoekradius (~10 cm); meet na, hoeken zijn flink afgerond
 WAND      = 10.0    # dikte van het schot (buiten -> binnen)
 
-MARGE     = 3.0     # speling rondom de insteek in het gat (per zijde) - handzaag (was 1.5, gat zit ruimer)
+MARGE     = 10.0    # speling rondom de insteek in het gat (PER ZIJDE) - handzaag, ruim genomen
 
 FLENS_OVER = 4.0    # hoeveel de buitenflens over de rand grijpt (rondom) -> bepaalt buitenmaat
 FLENS_DIK  = 4.0    # dikte van de buitenflens (de zichtbare plaat)
