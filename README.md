@@ -1,3 +1,5 @@
+> ℹ️ **Deze tekening is verhuisd naar de algemene repo: https://github.com/brennyc86/3d-modellen (map `afdekplaat-scheepsopening`).** Daar staat de actuele versie.
+
 # BKOS – Afdekplaat scheepsopening (2-delig)
 
 3D-printbaar afdekplaatje voor een opening in het schot, zodat de kat niet bij de

@@ -28,7 +28,7 @@ OPENING_H = 245.0   # hoogte  van de opening
 OPENING_R = 95.0    # hoekradius (~10 cm); meet na, hoeken zijn flink afgerond
 WAND      = 10.0    # dikte van het schot (buiten -> binnen)
 
-MARGE     = 1.5     # speling rondom de insteek in het gat (per zijde) - handzaag
+MARGE     = 3.0     # speling rondom de insteek in het gat (per zijde) - handzaag (was 1.5, gat zit ruimer)
 
 FLENS_OVER = 4.0    # hoeveel de buitenflens over de rand grijpt (rondom) -> bepaalt buitenmaat
 FLENS_DIK  = 4.0    # dikte van de buitenflens (de zichtbare plaat)
@@ -38,6 +38,7 @@ RAND_DIK   = 3.5    # wanddikte van de insteekrand (in het gat)
 HAAK_OVER  = 12.0   # hoe ver de richel achter het schot grijpt (= breedte contactvlak)
 HAAK_DIK   = 5.0    # dikte/hoogte van de richel -> stijver
 HAAK_BAND  = 52.0   # haak alleen op de lagere/hogere bocht (smaller dan flens -> binnen buitenmaat)
+HAAK_BOVEN_X = 55.0 # BOVENDEEL: richel alleen op het vlakke bovenstuk |x|<dit, niet in de bocht (makkelijker inzetten)
 HAAK_VOORSPAN = 0.3 # lichte voorspanning: contactvlak op Z=WAND-dit, klemt tegen schot
 WEB_DIK    = 6.0    # verbindingsweb richel<->flens over volle hoogte (tegen 'zweven')
 
@@ -57,14 +58,14 @@ BOSS_LEN      = 10.0   # lengte boss de boot in (Z+)
 KABEL_AAN = True
 KABEL_B   = 70.0
 KABEL_H   = 20.0
-KABEL_X   = -35.0   # midden x
+KABEL_X   = 35.0    # midden x (verplaatst naar andere kant: van buiten gezien nu links)
 KABEL_Y   = -95.0   # midden y
 KABEL_R   = 6.0     # afronding van het slot
 # Open toegangssleuf: verbindt het kabelgat met de rand, zodat je de plaat OVER
 # reeds aangesloten kabels kunt leggen (kabels hoeven niet losgekoppeld).
 SLEUF_AAN = True
 SLEUF_B   = 16.0    # breedte van de toegangssleuf
-SLEUF_X   = -35.0   # midden x van de sleuf (default = midden kabelgat)
+SLEUF_X   = 35.0    # midden x van de sleuf (mee verplaatst met kabelgat)
 SLEUF_NAAR = "onder"  # naar welke rand de sleuf loopt: "onder" / "links" / "rechts"
 
 QS = 24             # quad-segments voor afrondingen (gladheid)
@@ -86,6 +87,11 @@ def solid(poly, z0, z1):
 def ybox(ylow, yhigh):
     b = trimesh.creation.box(extents=[4000, yhigh - ylow, 4000])
     b.apply_translation([0, (ylow + yhigh) / 2.0, 0])
+    return b
+
+def xbox(xlow, xhigh):
+    b = trimesh.creation.box(extents=[xhigh - xlow, 4000, 4000])
+    b.apply_translation([(xlow + xhigh) / 2.0, 0, 0])
     return b
 
 def cyl(radius, z0, z1, x=0.0, y=0.0):
@@ -144,7 +150,8 @@ def haak(onder=True):
     if onder:
         sel = ybox(-3000, -(OPENING_H/2 - HAAK_BAND))
     else:
-        sel = ybox(OPENING_H/2 - HAAK_BAND, 3000)
+        # bovendeel: richel alleen op het vlakke bovenstuk, niet in de bocht
+        sel = I(ybox(OPENING_H/2 - HAAK_BAND, 3000), xbox(-HAAK_BOVEN_X, HAAK_BOVEN_X))
     return I(h, sel)
 
 # ============================================================
